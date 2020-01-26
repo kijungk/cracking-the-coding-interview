@@ -1,4 +1,4 @@
-const { sumLists, stringifyLinkedList } = require('./sumLists');
+const { sumLists, sumListsForwards, stringifyLinkedList } = require('./sumLists');
 
 function linkedListNode(value) {
   return {
@@ -11,17 +11,17 @@ let a, b, c, A, B, C, x, y, z;
 
 
 beforeEach(() => {
-  a = linkedListNode(4);
-  b = linkedListNode(5);
-  c = linkedListNode(3);
+  a = linkedListNode(7);
+  b = linkedListNode(1);
+  c = linkedListNode(6);
 
-  A = linkedListNode(1);
-  B = linkedListNode(3);
-  C = linkedListNode(4);
+  A = linkedListNode(5);
+  B = linkedListNode(9);
+  C = linkedListNode(2);
 
-  x = linkedListNode(5);
-  y = linkedListNode(8);
-  z = linkedListNode(7);
+  x = linkedListNode(2);
+  y = linkedListNode(1);
+  z = linkedListNode(9);
 
   a.next = b;
   b.next = c;
@@ -40,16 +40,7 @@ describe('2.5 Sum Lists: Write a function that adds the two numbers represented 
     x.next = y;
     y.next = z;
 
-    const head = sumLists(a, A, true);
+    const head = sumLists(a, A);
     expect(stringifyLinkedList(head)).toEqual(stringifyLinkedList(x));
-  });
-
-  test('should return sum of the two lists in forward order', () => {
-    z.next = y;
-    y.next = x;
-    x.next = null;
-
-    const head = sumLists(a, A, false);
-    expect(stringifyLinkedList(head)).toEqual(stringifyLinkedList(z));
   });
 });
