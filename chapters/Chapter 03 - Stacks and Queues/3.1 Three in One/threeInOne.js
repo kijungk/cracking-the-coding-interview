@@ -1,19 +1,28 @@
-module.exports = class ThreeInOne {
+class ThreeInOne {
   container = [];
-
-  oneTop = 0;
-  twoTop = 0;
+  oneCount = 0;
+  twoCount = 0;
 
   onePush(item) {
+    this.container.splice(this.oneCount, 0, item);
 
+    ++this.oneCount;
+
+    return;
   }
 
   onePop() {
+    const popPosition = this.oneCount ? this.oneCount - 1 : 0;
 
+    this.container.splice(popPosition, 1);
+
+    return --this.oneCount;
   }
 
   onePeek() {
+    const peekPosition = this.oneCount ? this.oneCount - 1 : 0;
 
+    return this.container[peekPosition];
   }
 
   oneIsEmpty() {
@@ -25,33 +34,35 @@ module.exports = class ThreeInOne {
   }
 
   twoPush(item) {
-    if (!this.twoIsEmpty()) {
-      this.container.splice(this.oneTop + this.twoTop, 0, item);
-    }
+    this.container.splice(this.oneCount + this.twoCount, 0, item);
 
-    this.container.splice(this.oneTop, 0, item);
-    return ++this.twoTop;
+    return ++this.twoCount;
   }
 
   twoPop() {
+    const popPosition = this.twoCount ? this.twoCount - 1 : 0;
+
     if (this.twoIsEmpty()) {
       return undefined;
     }
 
-    this.container.splice(twoTop - 1, 1);
-    return --this.twoTop;
+    this.container.splice(this.oneCount + popPosition, 1);
+
+    return --this.twoCount;
   }
 
   twoPeek() {
+    const peekPosition = this.twoCount ? this.twoCount - 1 : 0;
+
     if (this.twoIsEmpty()) {
       return undefined;
     }
 
-    return this.container[twoTop - 1];
+    return this.container[this.oneCount + peekPosition];
   }
 
   twoIsEmpty() {
-    if (this.twoTop) {
+    if (this.twoCount) {
       return false;
     }
 
@@ -78,3 +89,5 @@ module.exports = class ThreeInOne {
     return true;
   }
 }
+
+module.exports = ThreeInOne;

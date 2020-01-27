@@ -9,6 +9,7 @@
   "author": "Ki Jung Kim",
   "license": "ISC",
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "jest": "^24.9.0"
   }
 }
